@@ -15,10 +15,22 @@ function createFeatures(earthquakeData) {
         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
     }
 
+    function createMarker(feature, coord) {
+        return new L.circle(coord, {
+            stroke: false,
+            fillOpacity:0.75,
+            color:"black",
+            fillColor:"green",
+            radius: 20000
+        })
+    }
+
     // Create a GeoJSON layer that contains the features array on the earthquakeData object.
     // Run the onEachFeature function once for each piece of data in the array.
+    // https://geospatialresponse.wordpress.com/2015/07/26/leaflet-geojson-pointtolayer/
     var earthquakes = L.geoJSON(earthquakeData, {
-        onEachFeature: onEachFeature
+        onEachFeature: onEachFeature,
+        pointToLayer: createMarker
     });
 
     // Send our earthquakes layer to the createMap function/
@@ -53,8 +65,7 @@ function createMap(earthquakes) {
         }
     });
 
-    // Create a layer group for the earthquake markers
-    var eqs = L.layerGroup(markers);
+    console.log("markers:", markers);
 
     // Create a baseMaps object.
     var baseMaps = {
@@ -64,7 +75,7 @@ function createMap(earthquakes) {
 
     // Create an overlay object.
     var overlayMaps = {
-    "Earthquakes": earthquakes,
+    "Earthquakes": earthquakes
     };
 
     // Define a map object.
@@ -90,7 +101,7 @@ function markerSize(magnitude) {
 // https://htmlcolorcodes.com/colors/shades-of-red/
 function markerColor(depth) {
     if (depth < 1) {
-        return "rgb(255, 195, 0)";
+        return "rgb(218, 247, 166)";
     } else if (depth >= 1 && depth < 2) {
         return "rgb(255, 195, 0)";
     } else if (depth >= 2 && depth < 4) {
