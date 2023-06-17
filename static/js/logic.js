@@ -20,8 +20,9 @@ function createFeatures(earthquakeData) {
             stroke: false,
             fillOpacity:0.75,
             color:"black",
-            fillColor:"green",
-            radius: 20000
+            // The third coordinate is depth
+            fillColor:markerColor(feature.geometry.coordinates[2]),
+            radius: markerSize(feature.properties.mag)
         })
     }
 
@@ -47,25 +48,6 @@ function createMap(earthquakes) {
     var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
     });
-
-  
-    var markers = [];
-
-    d3.json(url).then(function (data) {
-        for (var i = 0; i < data.features.length; i++) {
-            markers.push(
-                L.circle(data.features[i].geometry.coordinates, {
-                    stroke: false,
-                    fillOpacity:0.75,
-                    color:"black",
-                    fillColor:markerColor(data.features[i].properties.mag),
-                    radius: markerSize(data.features[i].properties.mag)
-                })
-            )
-        }
-    });
-
-    console.log("markers:", markers);
 
     // Create a baseMaps object.
     var baseMaps = {
@@ -95,22 +77,22 @@ function createMap(earthquakes) {
 
 // note that some magnitudes may be negative
 function markerSize(magnitude) {
-    return magnitude * 50;
+    return magnitude * 12000;
 }
 
-// https://htmlcolorcodes.com/colors/shades-of-red/
+// https://htmlcolorcodes.com/colors/shades-of-blue/
 function markerColor(depth) {
-    if (depth < 1) {
-        return "rgb(218, 247, 166)";
+    if (depth < 1) {// lightest
+        return "rgb(125, 249, 255)";
     } else if (depth >= 1 && depth < 2) {
-        return "rgb(255, 195, 0)";
+        return "rgb(0, 150, 255)";
     } else if (depth >= 2 && depth < 4) {
-        return "rgb(255, 87, 51)";
+        return "rgb(0, 150, 255)";
     } else if (depth >= 4 && depth < 6) {
-        return "rgb(199, 0, 57)";
+        return "rgb(31, 81, 255)";
     } else if (depth >= 6 && depth < 8) {
-        return "rgb(144, 12, 63)";
-    } else {
-        return "rgb(74, 4, 4)";
+        return "rgb(0, 0, 255)";
+    } else { // darkest
+        return "rgb(25, 25, 112)";
     }
 }
