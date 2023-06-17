@@ -72,12 +72,28 @@ function createMap(earthquakes) {
     L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
     }).addTo(myMap);
-  
+
+    // https://codepen.io/haakseth/pen/KQbjdO
+    var legend = L.control({ position: "bottomleft" });
+    legend.onAdd = function(myMap) {
+    var div = L.DomUtil.create("div", "legend");
+    div.innerHTML += "<h4>Legend</h4>";
+    div.innerHTML += '<span style="background:rgb(125, 249, 255)">depth&lt;1</span><br>';
+    div.innerHTML += '<span style="background:rgb(0, 150, 255)">1&lt;depth&lt;2</span><br>';
+    div.innerHTML += '<span style="background:rgb(31, 81, 255);color:white">2&lt;depth&lt;4</span><br>';
+    div.innerHTML += '<span style="background:rgb(0, 0, 255);color:white">4&lt;depth&lt;6</span><br>';
+    div.innerHTML += '<span style="background:rgb(0, 71, 171);color:white">6&lt;depth&lt;8</span><br>';
+    div.innerHTML += '<span style="background:rgb(25, 25, 112);color:white">depth&gt;8</span><br>';
+
+    return div;
+    };
+
+    legend.addTo(myMap);
 }  
 
 // note that some magnitudes may be negative
 function markerSize(magnitude) {
-    return magnitude * 12000;
+    return magnitude * 14000;
 }
 
 // https://htmlcolorcodes.com/colors/shades-of-blue/
@@ -87,11 +103,11 @@ function markerColor(depth) {
     } else if (depth >= 1 && depth < 2) {
         return "rgb(0, 150, 255)";
     } else if (depth >= 2 && depth < 4) {
-        return "rgb(0, 150, 255)";
-    } else if (depth >= 4 && depth < 6) {
         return "rgb(31, 81, 255)";
-    } else if (depth >= 6 && depth < 8) {
+    } else if (depth >= 4 && depth < 6) {
         return "rgb(0, 0, 255)";
+    } else if (depth >= 6 && depth < 8) {
+        return "rgb(0, 71, 171)";
     } else { // darkest
         return "rgb(25, 25, 112)";
     }

@@ -6,5 +6,7 @@ Module 15 Challenge for the Vanderbilt Data Analytics Bootcamp 2023
 
 Shades of blue were taken from [this page](https://htmlcolorcodes.com/colors/shades-of-blue/). 
 
+Legend adapted from [this page](https://codepen.io/haakseth/pen/KQbjdO). 
+
 # Earthquake Map
 ![map](Images/1.png)
