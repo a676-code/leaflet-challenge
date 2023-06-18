@@ -73,21 +73,23 @@ function createMap(earthquakes) {
     collapsed: false
     }).addTo(myMap);
 
+    // https://gis.stackexchange.com/questions/133630/adding-leaflet-legend
     // https://codepen.io/haakseth/pen/KQbjdO
-    var legend = L.control({ position: "bottomleft" });
-    legend.onAdd = function(myMap) {
-    var div = L.DomUtil.create("div", "legend");
-    div.innerHTML += "<h4>Legend</h4>";
-    div.innerHTML += '<span style="background:rgb(125, 249, 255)">depth&lt;1</span><br>';
-    div.innerHTML += '<span style="background:rgb(0, 150, 255)">1&lt;depth&lt;2</span><br>';
-    div.innerHTML += '<span style="background:rgb(31, 81, 255);color:white">2&lt;depth&lt;4</span><br>';
-    div.innerHTML += '<span style="background:rgb(0, 0, 255);color:white">4&lt;depth&lt;6</span><br>';
-    div.innerHTML += '<span style="background:rgb(0, 71, 171);color:white">6&lt;depth&lt;8</span><br>';
-    div.innerHTML += '<span style="background:rgb(25, 25, 112);color:white">depth&gt;8</span><br>';
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
+    var legend = L.control({position: 'bottomright'});
+    legend.onAdd = function (myMap) {
 
+    var div = L.DomUtil.create('div', 'info legend');
+    labels = ['<strong>Legend</strong>'],
+        div.innerHTML += labels.push('<i style="background:' + markerColor(0) + '">| _ |</i> &lt;' + 1);
+        div.innerHTML += labels.push('<i style="background:' + markerColor(1) + '">| _ |</i> ' + 1 + '-' + 2);
+        div.innerHTML += labels.push('<i style="background:' + markerColor(2) + '">| _ |</i> ' + 2 + '-' + 4);
+        div.innerHTML += labels.push('<i style="background:' + markerColor(4) + '">| _ |</i> ' + 4 + '-' + 6);
+        div.innerHTML += labels.push('<i style="background:' + markerColor(6) + '">| _ |</i> ' + 6 + '-' + 8);
+        div.innerHTML += labels.push('<i style="background:' + markerColor(9) + '">| _ |</i> &gt;' + 8);
+        div.innerHTML = labels.join('<br>');
     return div;
     };
-
     legend.addTo(myMap);
 }  
 
@@ -101,9 +103,9 @@ function markerColor(depth) {
     if (depth < 1) {// lightest
         return "rgb(125, 249, 255)";
     } else if (depth >= 1 && depth < 2) {
-        return "rgb(0, 150, 255)";
+        return "rgb(137, 207, 240)";
     } else if (depth >= 2 && depth < 4) {
-        return "rgb(31, 81, 255)";
+        return "rgb(0, 150, 255)";
     } else if (depth >= 4 && depth < 6) {
         return "rgb(0, 0, 255)";
     } else if (depth >= 6 && depth < 8) {

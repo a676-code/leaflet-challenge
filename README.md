@@ -6,7 +6,7 @@ Module 15 Challenge for the Vanderbilt Data Analytics Bootcamp 2023
 
 Shades of blue were taken from [this page](https://htmlcolorcodes.com/colors/shades-of-blue/). 
 
-Legend adapted from [this page](https://codepen.io/haakseth/pen/KQbjdO). 
+Legend adapted from [page1](https://gis.stackexchange.com/questions/133630/adding-leaflet-legend), [page2](https://codepen.io/haakseth/pen/KQbjdO), and [page3](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML). 
 
 # Earthquake Map
 ![map](Images/1.png)
