@@ -81,6 +81,7 @@ function createMap(earthquakes) {
 
     var div = L.DomUtil.create('div', 'info legend');
     labels = ['<strong>Legend</strong>'],
+    // the characters | _ | provides a cheap way of making a square of color
         div.innerHTML += labels.push('<i style="background:' + markerColor(0) + '">| _ |</i> &lt;' + 1);
         div.innerHTML += labels.push('<i style="background:' + markerColor(1) + '">| _ |</i> ' + 1 + '-' + 2);
         div.innerHTML += labels.push('<i style="background:' + markerColor(2) + '">| _ |</i> ' + 2 + '-' + 4);
